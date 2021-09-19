@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Hell Giraffe (JS WebGL)</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      color: #444;
+    }
+    h1 {
+      font-family: Georgia,sans-serif;
+      margin: 0px;
+    }
+    a {
+      color: #185b7c;
+    }
+    a:hover {
+      background-color: #296c8d;
+      color: #fff;
+    }
+    #everything {
+      width: 800px;
+      margin: 0 auto;
+    }
+    #header {
+      border-bottom: 1px solid #aaa;
+      margin: 0 0 10px 0;
+    }
+    #footer {
+      margin: 10px 0 0 0;
+      border-top: 1px solid #aaa;
+      padding: 5px 0 10px 0;
+      color: #888;
+      font-size: 90%;
+    }
+    #container {
+      width: 800px;
+      height: 600px;
+      background-color: rgb(138, 28, 3);
+
+      background-image: -webkit-gradient(
+          linear,
+          left bottom,
+          left top,
+          color-stop(0, rgb(138, 28, 3)),
+          color-stop(1, rgb(56, 4, 10))
+      );
+      background-image: -moz-linear-gradient(
+          center bottom,
+          rgb(138, 28, 3) 0%,
+          rgb(56, 4, 10) 100%
+      );
+    }
+    #score {
+      color: #fff;
+      position: absolute;
+      z-index: 2;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 24px;
+    }
+    #message,
+    #error,
+    #congrat {
+      width: 800px;
+      text-align: center;
+      padding-top: 160px;
+      position: absolute;
+      color: #fff;
+      z-index: 2;
+    }
+    #congrat p {
+      font-size: 100px;
+      margin: 0;
+      padding: 0;
+    }
+    #congrat p.info {
+      margin: 0;
+      padding: 30px 0 0 0;
+      font-size: 30px;
+      z-index: 3;
+    }
+
+    #faq,
+    #controls {
+      width: 150px;
+      height: 200px;
+      border: 1px solid #aaa;
+      position: absolute;
+      padding: 10px;
+      margin: 10px;
+      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+      -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #faq h2,
+    #controls h2 {
+      border-bottom: 1px solid #aaa;
+      color: #888;
+      font-size: 18px;
+      padding: 0;
+      margin: 0 0 7px 0;
+    }
+
+    #faq p,
+    #controls p {
+      color: #999;
+      margin: 0 0 10px;
+      padding: 0;
+      font-size: 12px;
+    }
+
+    #faq a {
+      color: #7f939d;
+    }
+
+    #controls {
+      top: 0;
+      right: 0;
+    }
+
+    #faq {
+      top: 240px;
+      right: 0;
+    }
+  </style>
+  <script type="text/javascript" charset="utf-8" src="three/Three.js"></script>
+  <script type="text/javascript" charset="utf-8" src="three/ThreeExtras.js"></script>
+  <script type="text/javascript" charset="utf-8" src="config.js"></script>
+  <script type="text/javascript" charset="utf-8" src="anim.js"></script>
+  <script type="text/javascript" charset="utf-8" src="resources.js"></script>
+  <script type="text/javascript" charset="utf-8" src="giraffe.js"></script>
+  <script type="text/javascript" charset="utf-8" src="scene.js"></script>
+  <script type="text/javascript" charset="utf-8" src="io.js"></script>
+  <script type="text/javascript" charset="utf-8" src="main.js"></script>
+</head>
+<body onload="main();">
+
+  <div id="controls">
+    <h2>Controls</h2>
+    <p>
+      A, &lt;Left&gt; - turn left
+     <br/>
+     <br/>
+      D, &lt;Right&gt; - turn right
+     <br/>
+     <br/>
+      W, &lt;Up&gt; - move forward
+     <br/>
+     <br/>
+      &lt;SPACE&gt; - special move
+    </p>
+  </div>
+
+  <div id="faq">
+    <h2>FAQ</h2>
+    <p>
+    <b>What ?..</b><br/>
+    Yes. It is giraffe from hell and it throws up carrots. (pokerface)
+    </p>
+    <p>
+      <b>Software used?</b><br/>
+      <a href="http://www.blender.org/">Blender</a>,
+      <a href="http://www.gimp.org/">Gimp</a>,
+      <br/>
+      <a href="https://github.com/mrdoob/three.js/">mrdoob's three.js</a>,
+      <br/>
+      <a href="http://www.wesnoth.org/">Wesnoth Map Editor</a>.
+    </p>
+  </div>
+
+  <div id="everything">
+    <div id="header">
+      <h1>Hell Giraffe (WebGL)</h1>
+      <p class="info">
+        <a href="http://www.khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">Supported browsers</a>,
+        <a href="https://bitbucket.org/petraszd/hell-giraffe-webgl">Source code</a>,
+        <a href="https://bitbucket.org/petraszd/hell-giraffe-webgl/downloads/giraffe.blend">.blend file with models and textures</a>
+      </p>
+    </div>
+    <div id="content">
+      <div id="score"></div>
+      <div id="message" style="display: none;">
+        <p>Please, wait. Loading...</p>
+      </div>
+      <div id="error" style="display: none;">
+        <p>Sorry, your browser doesn't support WebGL...</p>
+      </div>
+      <div id="congrat" style="display: none;">
+        <p>You are a winner!!!</p>
+        <p class="info">Press &lt;ENTER&gt; or &lt;RETURN&gt; to play again</p>
+      </div>
+      <div id="container"></div>
+    </div>
+    <div id="footer">
+      © Copyright 2011 Petras Zdanavičius (petraszd&lt;secret symbol&gt;gmail&lt;secret dot&gt;com). All Rights Reserved.
+    </div>
+  </div>
+</body>
